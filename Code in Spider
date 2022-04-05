@@ -1,0 +1,47 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+#Importing libraries
+import nltk #for text reading
+import bs4 as bs #beautufil soup
+import urllib #url fetching
+import re #regular expression
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+
+
+source=urllib.request.urlopen('https://en.wikipedia.org/wiki/Dil_Dosti_Dance')
+
+
+print(source)
+
+soup=bs.BeautifulSoup(source,'lxml')
+
+#getting all the text under the paragraph tag of the page
+text=""
+for para in soup.find_all('p'):
+    text+=para.text
+    
+    #modifying the text REMOVING numbers special char etc
+text=re.sub(r'[\[0-9]*\]','',text)
+text=re.sub(r'\s+','',text)
+text=text.lower()
+text=re.sub(r'\d','',text)
+text=re.sub(r'\s+','',text)
+
+
+import nltk
+nltk.download()
+
+#creating a dataset of all thewords
+
+sentence=nltk.sent_tokenize(text)
+
+sentence=[nltk.word_tokenize(sen) for sen in sentence]
+
+
+    
